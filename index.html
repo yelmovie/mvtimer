@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>다했니? 다했어요!</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 로그인 화면 -->
+    <div id="loginScreen" class="screen active">
+      <div class="container">
+        <h1>다했니? 다했어요!</h1>
+        <div class="login-options">
+          <button class="btn btn-primary" onclick="showTeacherLogin()">
+            교사용 (다했니?)
+          </button>
+          <button class="btn btn-secondary" onclick="showStudentLogin()">
+            학생용 (다했어요!)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 교사 로그인 -->
+    <div id="teacherLogin" class="screen">
+      <div class="container">
+        <h2>교사 로그인</h2>
+        <input
+          type="text"
+          id="teacherName"
+          placeholder="이름을 입력하세요"
+          class="input"
+        />
+        <button class="btn btn-primary" onclick="loginAsTeacher()">
+          로그인
+        </button>
+        <button class="btn btn-link" onclick="showLoginScreen()">뒤로</button>
+      </div>
+    </div>
+
+    <!-- 학생 로그인 -->
+    <div id="studentLogin" class="screen">
+      <div class="container">
+        <h2>학생 로그인</h2>
+        <input
+          type="text"
+          id="studentCode"
+          placeholder="학생 코드를 입력하세요 (4자리 숫자)"
+          class="input"
+          maxlength="4"
+          pattern="[0-9]*"
+          inputmode="numeric"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)"
+          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+          onkeydown="if(event.key === 'Enter') loginAsStudent()"
+        />
+        <input
+          type="text"
+          id="studentName"
+          placeholder="이름을 입력하세요"
+          class="input"
+          onkeydown="if(event.key === 'Enter') loginAsStudent()"
+        />
+        <button class="btn btn-primary" onclick="loginAsStudent()">
+          로그인
+        </button>
+        <button class="btn btn-link" onclick="showLoginScreen()">뒤로</button>
+      </div>
+    </div>
+
+    <!-- 교사 화면 -->
+    <div id="teacherScreen" class="screen">
+      <div class="container">
+        <header>
+          <h2>다했니? - 교사용</h2>
+          <div class="user-info">
+            <span id="teacherNameDisplay"></span>
+            <button class="btn btn-small" onclick="logout()">로그아웃</button>
+          </div>
+        </header>
+
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('classManagement')">
+            학급 관리
+          </button>
+          <button class="tab" onclick="showTab('assignments')">
+            과제 관리
+          </button>
+          <button class="tab" onclick="showTab('notices')">알림장</button>
+        </div>
+
+        <!-- 학급 관리 탭 -->
+        <div id="classManagement" class="tab-content active">
+          <h3>학급 관리</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="className"
+              placeholder="학급명 입력"
+              class="input"
+            />
+            <button class="btn btn-primary" onclick="createClass()">
+              학급 생성
+            </button>
+          </div>
+          <div id="classList"></div>
+          <div id="studentList"></div>
+        </div>
+
+        <!-- 과제 관리 탭 -->
+        <div id="assignments" class="tab-content">
+          <h3>과제 관리</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="assignmentTitle"
+              placeholder="과제 제목"
+              class="input"
+            />
+            <textarea
+              id="assignmentContent"
+              placeholder="과제 내용"
+              class="textarea"
+            ></textarea>
+            <button class="btn btn-primary" onclick="sendAssignment()">
+              과제 전송
+            </button>
+          </div>
+          <div id="assignmentList"></div>
+        </div>
+
+        <!-- 알림장 탭 -->
+        <div id="notices" class="tab-content">
+          <h3>알림장 작성</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="noticeTitle"
+              placeholder="알림장 제목"
+              class="input"
+            />
+            <textarea
+              id="noticeContent"
+              placeholder="알림장 내용"
+              class="textarea"
+            ></textarea>
+            <button class="btn btn-primary" onclick="sendNotice()">
+              알림장 전송
+            </button>
+          </div>
+          <div id="noticeList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 학생 화면 -->
+    <div id="studentScreen" class="screen">
+      <div class="container">
+        <header>
+          <h2>다했어요! - 학생용</h2>
+          <div class="user-info">
+            <span id="studentNameDisplay"></span>
+            <button class="btn btn-small" onclick="logout()">로그아웃</button>
+          </div>
+        </header>
+
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('myAssignments')">
+            내 과제
+          </button>
+          <button class="tab" onclick="showTab('myNotices')">알림장</button>
+          <button class="tab" onclick="showTab('myCookies')">쿠키</button>
+        </div>
+
+        <!-- 내 과제 탭 -->
+        <div id="myAssignments" class="tab-content active">
+          <h3>내 과제</h3>
+          <div id="studentAssignmentList"></div>
+        </div>
+
+        <!-- 알림장 탭 -->
+        <div id="myNotices" class="tab-content">
+          <h3>알림장</h3>
+          <div id="studentNoticeList"></div>
+        </div>
+
+        <!-- 쿠키 탭 -->
+        <div id="myCookies" class="tab-content">
+          <h3>내 쿠키</h3>
+          <div class="cookie-display">
+            <div class="cookie-count">🍪 <span id="cookieCount">0</span>개</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
