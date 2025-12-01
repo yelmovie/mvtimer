@@ -1,0 +1,1001 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #eef3f8;
+  --card-bg: #ffffff;
+  --accent: #6b8fe3;
+  --accent-soft: #d7e1ff;
+  --accent-strong: #3c5ac4;
+  --text-main: #233142;
+  --text-sub: #6b7b8c;
+  --danger: #e05757;
+  --shadow-soft: 0 14px 30px rgba(35, 49, 66, 0.08);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #f3f7fb 0%, #e3edf6 60%, #dde6f2 100%);
+  color: var(--text-main);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 1100px;
+  padding: 18px;
+}
+
+/* 헤더 */
+
+/* 헤더 */
+
+.app-header {
+  text-align: center;
+  margin-bottom: 12px;
+  position: relative; /* For absolute positioning of children */
+}
+
+.title-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.class-name-input {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  border: none;
+  background: transparent;
+  width: 80px;
+  text-align: right;
+  outline: none;
+  border-bottom: 2px dashed var(--accent-soft);
+  padding: 0 2px;
+  transition: border-color 0.2s;
+}
+
+.class-name-input:focus {
+  border-bottom-color: var(--accent);
+}
+
+.title-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* 레이아웃 */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 카드 공통 */
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 12px;
+  box-shadow: var(--shadow-soft);
+  height: 100%; /* 높이 채우기 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ... (중략) ... */
+
+/* 풍선 모양 (이미지 기반으로 변경) */
+
+.balloon {
+  position: relative;
+  width: 200px; /* 이미지 크기에 맞게 조정 */
+  height: 240px;
+  /* 기존 CSS 풍선 스타일 제거 */
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0; /* 이미지 위 절대 배치를 위해 gap 제거 */
+  transition: transform 0.2s ease, opacity 0.25s ease;
+}
+
+.balloon::after {
+  display: none; /* 기존 끈 제거 */
+}
+
+.balloon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 20px rgba(80, 105, 185, 0.25));
+}
+
+/* 캐릭터 스타일 제거됨 */
+
+.balloon-time {
+  position: absolute;
+  top: 58%; /* 이미지 상 위치 조정 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #ffffff; /* 흰색 글씨 */
+  text-shadow: 
+    2px 2px 0 rgba(0,0,0,0.2); /* 가독성 그림자 */
+  z-index: 2;
+}
+
+/* ... (중략) ... */
+
+/* 반응형 레이아웃 */
+
+@media (min-width: 720px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1:2 비율 */
+    align-items: stretch; /* 높이 같게 */
+    gap: 14px;
+  }
+
+  .dday-board {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* overflow 방지 */
+  }
+}
+
+/* 시간 설정 영역 */
+
+.time-setup {
+  margin-bottom: 10px;
+}
+
+.time-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.time-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-field label {
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+
+.time-field input {
+  width: 70px;
+  padding: 6px 6px;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #cfd8e3;
+  background: #f7f9fc;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.time-field input:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.colon {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  margin-top: 18px;
+}
+
+.quick-buttons {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.quick-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  background: #f1f4fb;
+  color: var(--text-main);
+  transition: background 0.15s, transform 0.1s;
+}
+
+.quick-btn:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+}
+
+/* 휴식 타이머 버튼 강조 */
+
+.quick-btn-rest {
+  background: #e8f7f5;
+}
+
+.quick-btn-rest:hover {
+  background: #d1f0ea;
+}
+
+/* 풍선 섹션 */
+
+.balloon-section {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.label {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+
+.balloon-wrapper {
+  border-radius: 80px 80px 70px 70px;
+  background: radial-gradient(circle at 30% 20%, #ffffff 0%, #dce5ff 40%, #b7c6ff 100%);
+  box-shadow: 0 18px 30px rgba(80, 105, 185, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.2s ease, opacity 0.25s ease;
+  position: relative; /* SVG 절대 배치를 위해 */
+}
+
+/* 진행률 링 SVG */
+.progress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg); /* 12시 방향부터 시작 */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.35s;
+  transform-origin: 50% 50%;
+  stroke-linecap: round;
+  stroke: rgba(255, 255, 255, 0.8); /* 링 색상 */
+}
+
+/* 휴식 모드일 때 풍선 색 변경 (이미지 필터 사용) */
+body.rest-mode .balloon-img {
+  filter: hue-rotate(150deg) drop-shadow(0 18px 20px rgba(60, 155, 135, 0.25));
+}
+
+/* 풍선 아래 끈 부분 (이미지라 필요 없음, 삭제됨) */
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  background: #b7c6ff;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+body.rest-mode .balloon::after {
+  background: #9fd6c7;
+}
+
+.balloon-character {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.balloon-time {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-main);
+}
+
+/* 기본 떠있는 느낌 */
+.balloon.idle {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 남은 시간 얼마 안 남으면 살짝 흔들 */
+.balloon.shake {
+  animation: shake 0.4s ease-in-out infinite;
+}
+
+/* 터질 때 */
+.balloon.pop {
+  animation: pop 0.5s ease-out forwards;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-3px) translateY(-2px); }
+  50% { transform: translateX(2px) translateY(0); }
+  75% { transform: translateX(-1px) translateY(2px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* 상태 텍스트 */
+
+.status-text {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+}
+
+.status-text.warning {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* 버튼들 */
+
+.controls {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+.control-btn {
+  flex: 1;
+  border-radius: var(--radius-md);
+  padding: 9px 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: #f3f5fb;
+  color: var(--text-main);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.control-btn.primary {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 10px 18px rgba(59, 94, 196, 0.3);
+}
+
+.control-btn.outline {
+  border: 1px solid #c9d4ea;
+  background: #ffffff;
+}
+
+.control-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(35, 49, 66, 0.12);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 안내 문구 */
+
+/* 기능 선택 그리드 (프리셋) */
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.preset-card {
+  background: #ffffff;
+  border: 1px solid #eef1f8;
+  border-radius: var(--radius-md);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.preset-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--accent-soft);
+}
+
+.preset-card:active {
+  transform: translateY(0);
+}
+
+.preset-card img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.preset-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.preset-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.preset-time {
+  font-size: 0.7rem;
+  color: var(--text-sub);
+}
+
+/* 활성화된 프리셋 스타일 (선택 시) */
+.preset-card.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.preset-card.active .preset-name,
+.preset-card.active .preset-time {
+  color: #ffffff;
+}
+
+.preset-card.active img {
+  filter: brightness(0) invert(1); /* 흰색 아이콘으로 변경 */
+}
+
+/* 우측 보드 공통 */
+
+.section-title {
+  margin: 6px 0 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* 1) 큰 목표 박스 */
+
+.goal-section {
+  margin-bottom: 8px;
+}
+
+.goal-box {
+  border-radius: 16px;
+  border: 1px dashed #c7d3ea;
+  background: #f8f9ff;
+  padding: 10px 12px;
+  min-height: 56px;
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: none;
+  cursor: text;
+}
+
+.goal-box:focus {
+  border-style: solid;
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.goal-hint {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
+
+/* 2) D-DAY 보드 */
+
+.dday-section {
+  margin: 8px 0;
+  padding-top: 4px;
+  border-top: 1px solid #eef1f8;
+}
+
+.dday-hint {
+  margin: 2px 0 6px;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
+
+.dday-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px; /* 간격 축소 */
+}
+
+.dday-card {
+  border-radius: 14px;
+  background: #f4f6ff;
+  padding: 6px; /* 패딩 축소 */
+}
+
+.dday-controls {
+  display: flex;
+  gap: 4px; /* 간격 축소 */
+  margin-bottom: 4px;
+}
+
+.dday-controls input[type="date"] {
+  flex: 0.7; /* 날짜 입력창 너비 줄임 */
+  border-radius: 8px;
+  border: 1px solid #cfd8e3;
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  background: #f9fbff;
+  outline: none;
+  min-width: 0;
+}
+
+.dday-controls input[type="text"] {
+  flex: 1.3; /* 텍스트 입력창 너비 늘림 */
+  border-radius: 8px;
+  border: 1px solid #cfd8e3;
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  background: #f9fbff;
+  outline: none;
+  min-width: 0;
+}
+
+.dday-controls input:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.dday-display {
+  border-radius: 8px;
+  background: #e7ecff;
+  padding: 5px 6px; /* 패딩 축소 */
+  font-size: 0.78rem; /* 폰트 사이즈 축소 */
+  color: var(--text-main);
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 말줄임표 */
+}
+
+/* 3) 투두 리스트 */
+
+.todo-section {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #eef1f8;
+}
+
+.todo-hint {
+  margin: 2px 0 4px;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  column-gap: 20px;
+  row-gap: 6px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.todo-item label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.todo-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.todo-input {
+  flex: 1;
+  border: none;
+  border-bottom: 1px dashed #d3d9e6;
+  padding: 3px 2px;
+  font-size: 0.84rem;
+  background: transparent;
+  outline: none;
+}
+
+.todo-input:focus {
+  border-bottom-style: solid;
+  border-bottom-color: var(--accent);
+}
+
+/* 체크했을 때 '지워진 느낌' */
+.todo-item.done {
+  opacity: 0.35;
+  transform: translateX(4px);
+}
+
+.todo-item.done .todo-input {
+  text-decoration: line-through;
+}
+
+/* 오늘의 반성 & 내일의 계획 */
+
+.reflection-section {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed #dde3f3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reflection-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reflection-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.reflection-input {
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid #cfd8e3;
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  resize: vertical;
+  background: #f9fbff;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.reflection-input:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+/* 풋터 */
+
+.footer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-sub);
+}
+
+/* 반응형 레이아웃 */
+/* 작은 화면: 위아래 배치 (기본) */
+/* 큰 화면(16:9 태블릿/PC): 좌우 2열 */
+
+@media (min-width: 720px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1:2 비율 적용 */
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .dday-board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* 모바일 풍선·텍스트 크기 조정 */
+
+@media (max-width: 480px) {
+  .balloon {
+    width: 140px;
+    height: 180px;
+  }
+  .balloon-time {
+    font-size: 1.6rem;
+  }
+  .balloon-character {
+    font-size: 2rem;
+  }
+}
+/* 숨김 공통 */
+.hidden {
+  display: none !important;
+}
+
+/* 로그인 오버레이 */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 28, 46, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.16);
+}
+
+.login-title {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.login-desc {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+}
+
+.login-role {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.login-role label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.login-box {
+  margin-bottom: 10px;
+}
+
+.login-label {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+.login-input,
+.login-select {
+  width: 100%;
+  padding: 7px 8px;
+  border-radius: 10px;
+  border: 1px solid #cfd8e3;
+  font-size: 0.9rem;
+  outline: none;
+  background: #f7f9fc;
+}
+
+.login-input:focus,
+.login-select:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.login-error {
+  min-height: 16px;
+  font-size: 0.78rem;
+  color: var(--danger);
+  margin-bottom: 8px;
+}
+
+.login-submit {
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  padding: 9px 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(59, 94, 196, 0.3);
+}
+
+/* 현재 사용자 표시 */
+
+.user-info-bar {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+/* 로그아웃 버튼 */
+
+.logout-btn {
+  margin-left: 10px;
+  border-radius: 12px;
+  border: 1px solid #cfd8e3;
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* 쪽지 영역 */
+
+.message-section {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #eef1f8;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.message-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  gap: 2px;
+}
+
+.message-select {
+  border-radius: 10px;
+  border: 1px solid #cfd8e3;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  background: #f9fbff;
+}
+
+.message-select:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.message-textarea {
+  border-radius: 10px;
+  border: 1px solid #cfd8e3;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  resize: vertical;
+  min-height: 60px;
+  background: #f9fbff;
+  outline: none;
+}
+
+.message-textarea:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.message-send-btn {
+  align-self: flex-end;
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #f1f4ff;
+  color: var(--accent-strong);
+  cursor: pointer;
+}
+
+.message-list-wrapper {
+  border-radius: 10px;
+  background: #f7f9fe;
+  padding: 6px 8px;
+}
+
+.message-subtitle {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.message-item {
+  padding: 4px 0;
+  border-bottom: 1px dashed #dde3f2;
+  font-size: 0.8rem;
+}
+
+.message-item:last-child {
+  border-bottom: none;
+}
+
+.message-time {
+  font-size: 0.7rem;
+  color: var(--text-sub);
+  display: block;
+}
+
+/* 학생용 쪽지 리스트는 살짝 더 큰 글씨 */
+
+#studentMessageList .message-item {
+  font-size: 0.85rem;
+}
