@@ -132,9 +132,10 @@ export async function POST(request: Request) {
 
     // 역할 확인: One Source of Truth 사용
     const roleResult = await getUserRoleById(userId);
-    
-    // role이 null이면 오류 처리 (기본값 student로 보내지 않음)
-    if (roleResult.error || !roleResult.role) {
+    const userRole = roleResult.role;
+
+    // 1. DB/RLS 에러 발생 시
+    if (roleResult.error && !roleResult.role) {
       console.error("[teacher-login] step=role_check_failed", {
         userId,
         error: roleResult.error,
@@ -142,27 +143,57 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           ok: false,
-          code: "role_not_found",
-          message: roleResult.error || "사용자 역할을 확인할 수 없습니다.",
+          code: "role_fetch_failed",
+          message: "프로필 조회 실패: " + roleResult.error,
         },
         { status: 403 }
       );
     }
 
-    const userRole = roleResult.role;
+    // 2. 프로필(row) 자체가 없는 경우
+    if (!userRole) {
+      console.error("[teacher-login] step=profile_not_found", { userId });
+      return NextResponse.json(
+        {
+          ok: false,
+          code: "profile_not_found",
+          message:
+            "프로필이 없습니다(생성 필요). 관리자에게 문의하거나 회원가입을 완료해주세요.",
+        },
+        { status: 403 }
+      );
+    }
 
-    // 학생 역할인 경우 차단 (교사 로그인 페이지는 교사 전용)
+    // 3. 학생 역할인 경우 (교사 로그인 금지)
     if (isStudentRole(userRole)) {
-      console.error("[teacher-login] step=student_role_detected", { userId, userRole });
+      console.error("[teacher-login] step=student_role_detected", {
+        userId,
+        userRole,
+      });
       return NextResponse.json(
         {
           ok: false,
           code: "invalid_role",
-          message: "교사 로그인 페이지는 교사만 사용할 수 있습니다.",
+          message: "학생 계정입니다(학생 로그인 이용).",
         },
         { status: 403 }
       );
     }
+    
+    // 4. 교사(또는 관리자)가 아닌 경우 차단 (방어적 코드)
+    if (userRole !== "teacher" && userRole !== "admin") {
+       console.error("[teacher-login] step=unknown_role_detected", { userId, userRole });
+       return NextResponse.json(
+        {
+          ok: false,
+          code: "unknown_role",
+          message: "유효하지 않은 권한입니다.",
+        },
+        { status: 403 }
+      );
+    }
+
+    // OK: Role is 'teacher' or 'admin'
 
     // 로그인 성공 후 프로필 저장은 서버에서만 admin(service role)로 1회 수행 (RLS 영향 제거)
     console.error("[teacher-login] step=admin_profile_save_started");

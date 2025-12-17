@@ -216,6 +216,25 @@ export async function POST(request: Request) {
       // Ensure teacher row exists
       // - RLS: avoid upsert (may require UPDATE policy). Use INSERT and ignore duplicate key.
       // - Admin: upsert is fine (bypasses RLS and is idempotent).
+      // 1. Ensure profile role is 'teacher' (Fix for default 'student' role trigger)
+      {
+        const { error } = await client
+          .from('profiles')
+          .update({ role: 'teacher' })
+          .eq('user_id', userId);
+          
+        if (error) {
+           console.error(`[teacher-signup] step=db_update_profile_role_failed (${label})`, {
+            message: error.message,
+            code: (error as any).code
+          });
+          // Do not fail signup. Login page will handle "role mismatch" or "profile missing" better now.
+        } else {
+           console.log(`[teacher-signup] step=db_update_profile_role_success (${label})`);
+        }
+      }
+
+      // 2. Ensure teacher row exists
       {
         const { error } =
           label === 'admin'
@@ -226,13 +245,13 @@ export async function POST(request: Request) {
           if (label === 'rls' && (error as any)?.code === '23505') {
             // continue
           } else {
-          console.error(`[teacher-signup] step=db_upsert_teacher_failed (${label})`, {
-            message: error.message,
-            code: (error as any).code,
-            details: (error as any).details,
-            hint: (error as any).hint,
-          })
-          return { ok: false, step: 'db_upsert_teacher', error }
+            console.error(`[teacher-signup] step=db_upsert_teacher_failed (${label})`, {
+              message: error.message,
+              code: (error as any).code,
+              details: (error as any).details,
+              hint: (error as any).hint,
+            })
+            return { ok: false, step: 'db_upsert_teacher', error }
           }
         }
       }
