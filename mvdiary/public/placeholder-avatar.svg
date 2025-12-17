@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="기본 프로필">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9eef5"/>
+      <stop offset="1" stop-color="#dfe7f2"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="64" fill="url(#bg)"/>
+  <circle cx="64" cy="52" r="22" fill="#b7c6d9"/>
+  <path d="M24 118c9-22 24-34 40-34s31 12 40 34" fill="#b7c6d9"/>
+</svg>
+
+

@@ -1,0 +1,113 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  position: relative;
+  /* No mobile reflow; allow horizontal scroll on unsupported (<1024px) widths */
+  overflow-x: auto;
+  overflow-y: hidden;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(66, 165, 245, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 80% 50%, rgba(123, 31, 162, 0.06) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.95);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--spacing-2xl);
+  gap: var(--spacing-xl);
+  pointer-events: auto;
+}
+
+.header {
+  max-width: 520px;
+  z-index: 2;
+  position: relative;
+}
+
+.title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: #5a7ba3;
+  margin-bottom: var(--spacing-md);
+  text-align: left;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: var(--font-size-base);
+  color: #7a8ba3;
+  margin-bottom: 0;
+  text-align: left;
+  line-height: var(--line-height-relaxed);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  position: relative;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.dotButton {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--border-radius-full);
+  border: 0;
+  padding: 0;
+  background: #111;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0.35;
+}
+
+.dotButtonActive {
+  opacity: 1;
+}
+
+.dotButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.footer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  pointer-events: auto;
+}
+
+

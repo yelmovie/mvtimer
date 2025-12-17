@@ -1,0 +1,48 @@
+.root {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: var(--spacing-md);
+  width: 100%;
+  justify-content: center;
+  /* No mobile/stacked layout. Keep 3 buttons on one row. */
+  flex-wrap: nowrap;
+  pointer-events: auto;
+}
+
+.button {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  height: var(--button-height);
+  padding: 0 var(--spacing-xl);
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  min-width: 140px;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #2a2a2a;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+

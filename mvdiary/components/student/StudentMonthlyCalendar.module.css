@@ -1,0 +1,125 @@
+.wrap {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-surface-variant);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.navButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.navBtn {
+  width: 36px;
+  height: 36px;
+  background: var(--color-surface-variant);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-0);
+}
+
+.navBtn:hover {
+  background: rgba(25, 118, 210, 0.12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-surface-variant);
+  background: #ffffff;
+}
+
+.weekday {
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-variant);
+  text-align: center;
+  border-bottom: 1px solid var(--color-surface-variant);
+}
+
+.cell {
+  min-height: 92px;
+  border-right: 1px solid var(--color-surface-variant);
+  border-bottom: 1px solid var(--color-surface-variant);
+  padding: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  background: #ffffff;
+}
+
+.cell:nth-child(7n) {
+  border-right: none;
+}
+
+.dateNum {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.today {
+  outline: 2px solid rgba(25, 118, 210, 0.35);
+  outline-offset: -2px;
+  background: rgba(25, 118, 210, 0.06);
+}
+
+.empty {
+  background: rgba(240, 240, 240, 0.4);
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  user-select: none;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+}
+
+.hint {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .cell {
+    min-height: 84px;
+  }
+}
+
+
